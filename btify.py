@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import gi
 import subprocess
 gi.require_version('Gtk', '3.0')
@@ -26,8 +28,7 @@ def start_bluetooth(widget):
         status_label.set_text("Running")
         status_label.get_style_context().add_class("running")  # Apply CSS class for running
     except subprocess.CalledProcessError:
-        status_label.set_text("Error starting")
-        status_label.get_style_context().add_class("error")  # Apply CSS class for error
+        status_label.set_text(f"Error starting: {subprocess.CalledProcessError.output}")
 
 # Function to stop the Bluetooth service
 def stop_bluetooth(widget):
@@ -37,7 +38,6 @@ def stop_bluetooth(widget):
         status_label.get_style_context().add_class("stopped")  # Apply CSS class for stopped
     except subprocess.CalledProcessError:
         status_label.set_text("Error stopping")
-        status_label.get_style_context().add_class("error")  # Apply CSS class for error
 
 def get_initial_bluetooth_status():
     try:
